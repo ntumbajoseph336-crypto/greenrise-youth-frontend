@@ -141,10 +141,17 @@ function EventsPage() {
       setStatus({ type: "success", message: data.message || "Inscription enregistree." });
       setForm((prev) => ({ ...prev, fullName: "", email: "", phone: "" }));
     } catch (error) {
-      const msg =
-        error instanceof TypeError && error.message === "Failed to fetch"
-          ? "Impossible de joindre le serveur PHP. Lancez \"npm run php:api\" (port 8080) ou Apache avec htdocs/greenrise-api."
-          : error.message;
+      const errMsg = String(error?.message || "");
+      const isNetworkFail =
+        error instanceof TypeError &&
+        (errMsg === "Failed to fetch" ||
+          errMsg === "Load failed" ||
+          /network/i.test(errMsg));
+      const msg = isNetworkFail
+        ? "Impossible de joindre l'API PHP (réseau). En local : lancez « npm run php:api ». " +
+          "Sur Vercel : dans les variables d'environnement du projet, définissez VITE_REGISTER_URL, " +
+          "VITE_ACTIVITIES_URL et VITE_REPORTS_URL avec l'URL HTTPS complète de votre hébergement PHP (ex. InfinityFree), puis redéployez."
+        : error.message;
       setStatus({ type: "error", message: msg });
     } finally {
       setLoading(false);

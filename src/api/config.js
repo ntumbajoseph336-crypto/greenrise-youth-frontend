@@ -7,14 +7,16 @@ const fromEnv = import.meta.env.VITE_REGISTER_URL;
 const activitiesFromEnv = import.meta.env.VITE_ACTIVITIES_URL;
 const reportsFromEnv = import.meta.env.VITE_REPORTS_URL;
 
+const isProd = import.meta.env.PROD;
+
 export const REGISTER_URL =
   (fromEnv && String(fromEnv).trim()) ||
-  "/greenrise-api/api/register.php";
+  (isProd ? "/api/register.php" : "/greenrise-api/api/register.php");
 
 export const ACTIVITIES_URL =
   (activitiesFromEnv && String(activitiesFromEnv).trim()) ||
-  "/greenrise-api/api/activities.php";
+  (isProd ? "/api/activities.php" : "/greenrise-api/api/activities.php");
 
 export const REPORTS_URL =
   (reportsFromEnv && String(reportsFromEnv).trim()) ||
-  "/greenrise-api/api/activity_reports.php";
+  (isProd ? "/api/activity_reports.php" : "/greenrise-api/api/activity_reports.php");
