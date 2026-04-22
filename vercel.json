@@ -1,12 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://greenrise-test.lovestoblog.com/greenrise-api/backend/api/:path*"
+      "source": "/api/(.*)",
+      "destination": "https://greenrise-test.lovestoblog.com/greenrise-api/backend/api/$1"
     },
     {
-      "source": "/greenrise-api/backend/api/:path*",
-      "destination": "https://greenrise-test.lovestoblog.com/greenrise-api/backend/api/:path*"
+      "source": "/greenrise-api/backend/api/(.*)",
+      "destination": "https://greenrise-test.lovestoblog.com/greenrise-api/backend/api/$1"
     },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
